@@ -33,7 +33,7 @@ const Wishlist = () => {
                             )}
 
                             {wishlistItems.map((item, index) => (
-                                <Product {...item} key={index}/>
+                                <Product {...item} key={index} />
                             )
                             ).reverse()}
 
@@ -49,3 +49,7 @@ const Wishlist = () => {
 };
 
 export default Wishlist;
+
+
+
+

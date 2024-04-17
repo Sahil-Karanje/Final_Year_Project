@@ -10,14 +10,8 @@ const OrderSuccess = ({ success }) => {
     const [time, setTime] = useState(3);
 
     useEffect(() => {
-        if (time === 0) {
-            if (success) {
-                navigate("/orders")
-            } else {
-                navigate("/cart")
-            }
-            return;
-        };
+        navigate("/orders")
+       
         const intervalId = setInterval(() => {
             setTime(time - 1);
         }, 1000);

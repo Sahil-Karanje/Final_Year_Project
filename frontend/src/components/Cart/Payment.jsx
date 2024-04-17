@@ -4,7 +4,7 @@ import { useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from 'react-redux';
 import PriceSidebar from './PriceSidebar';
 import Stepper from './Stepper';
-import { clearErrors, newOrder } from '../../actions/orderAction';
+// import { clearErrors, newOrder } from '../../actions/orderAction';
 import { useSnackbar } from 'notistack';
 import {
     CardNumberElement,
@@ -14,7 +14,6 @@ import {
     useElements,
 } from '@stripe/react-stripe-js';
 import MetaData from '../Layouts/MetaData';
-import { EMPTY_CART } from '../../constants/cartConstants';
 
 const Payment = () => {
     const dispatch = useDispatch();
@@ -22,7 +21,7 @@ const Payment = () => {
     const [payDisable, setPayDisable] = useState(false);
     const { shippingInfo, cartItems } = useSelector((state) => state.cart);
     const { user } = useSelector((state) => state.user);
-    const { error } = useSelector((state) => state.newOrder);
+    // const { error } = useSelector((state) => state.newOrder);
     const stripe = useStripe();
     const elements = useElements();
     // const paymentBtn = useRef(null);
@@ -44,17 +43,31 @@ const Payment = () => {
 
     const submitHandler = async (e) => {
         e.preventDefault();
-        // paymentBtn.current.disabled = true;
-        setPayDisable(true);
         navigate("/order/success");
+        try {
+            // const config = {
+            //     headers: {
+            //         "Content-Type": "application/json",
+            //     },
+            // };
+
+            // const { data } = await axios.post(
+            //     '/api/v1/payment/process',
+            //     paymentData,
+            //     config,
+            // );
+        } catch (error) {
+
+        }
+
     };
 
-    useEffect(() => {
-        if (error) {
-            dispatch(clearErrors());
-            enqueueSnackbar(error, { variant: "error" });
-        }
-    }, [dispatch, error, enqueueSnackbar]);
+    // useEffect(() => {
+    //     if (error) {
+    //         dispatch(clearErrors());
+    //         enqueueSnackbar(error, { variant: "error" });
+    //     }
+    // }, [dispatch, error, enqueueSnackbar]);
 
     return (
         <>
@@ -65,18 +78,9 @@ const Payment = () => {
                         <Stepper activeStep={3}>
                             <div className="w-full bg-white">
                                 <form onSubmit={(e) => submitHandler(e)} autoComplete="off" className="flex flex-col justify-start gap-2 w-full mx-8 my-4 overflow-hidden">
-                                    {/* Stripe form */}
-                                    <div>
-                                        <CardNumberElement />
-                                    </div>
-                                    <div>
-                                        <CardExpiryElement />
-                                    </div>
-                                    <div>
-                                        <CardCvcElement />
-                                    </div>
+                                    
                                     <input onSubmit={submitHandler} type="submit" value="Pay" className="bg-primary-orange w-full sm:w-1/3 my-2 py-3.5 text-sm font-medium text-white shadow hover:shadow-lg rounded-sm uppercase outline-none cursor-pointer" />
-                                    {/* Stripe form */}
+                                    
                                 </form>
                             </div>
                         </Stepper>

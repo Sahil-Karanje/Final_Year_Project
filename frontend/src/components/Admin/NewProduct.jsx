@@ -360,3 +360,5 @@ const NewProduct = () => {
 };
 
 export default NewProduct;
+
+
